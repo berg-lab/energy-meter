@@ -6,8 +6,8 @@
 #include <WiFi.h>
 #include "time.h"
 
-const char * ssid="Krishna";
-const char * wifipw="zxcv0987";
+const char * ssid="Arjun";
+const char * wifipw="qwerty123";
 
 void setTimezone(String timezone){
   Serial.printf("  Setting Timezone to %s\n",timezone.c_str());
@@ -69,56 +69,11 @@ void setup(){
   Serial.begin(115200);
   Serial.setDebugOutput(true);
   startWifi();
-
-  initTime("CST6CDT,M3.2.0,M11.1.0");   // Set for Melbourne/AU
-  printLocalTime();
+  initTime("CST6CDT,M3.2.0,M11.1.0");   // Set for Chicago
+  
 }
 
 void loop() {
-  int i;
-  
-  // put your main code here, to run repeatedly:
-  Serial.println("Lets show the time for a bit.  Starting with TZ set for Melbourne/Australia");
-  for(i=0; i<10; i++){
-    delay(1000);
-    printLocalTime();
-  }
-  Serial.println();
-  Serial.println("Now - change timezones to Berlin");
-  setTimezone("CET-1CEST,M3.5.0,M10.5.0/3");
-  for(i=0; i<10; i++){
-    delay(1000);
-    printLocalTime();
-  }
-
-  Serial.println();
-  Serial.println("Now - Lets change back to Lisbon and watch Daylight savings take effect");
-  setTimezone("WET0WEST,M3.5.0/1,M10.5.0");
   printLocalTime();
-
-  Serial.println();
-  Serial.println("Now change the time.  1 min before DST takes effect. (1st Sunday of Oct)");
-  Serial.println("AEST = Australian Eastern Standard Time. = UTC+10");
-  Serial.println("AEDT = Australian Eastern Daylight Time. = UTC+11");
-  setTime(2021,10,31,0,59,50,0);    // Set it to 1 minute before daylight savings comes in.
-  
-  for(i=0; i<20; i++){
-    delay(1000);
-    printLocalTime();
-  }
-
-  Serial.println("Now change the time.  1 min before DST should finish. (1st Sunday of April)");
-  setTime(2021,3,28,1,59,50,1);    // Set it to 1 minute before daylight savings comes in.  Note. isDst=1 to indicate that the time we set is in DST.
-  
-  for(i=0; i<20; i++){
-    delay(1000);
-    printLocalTime();
-  }
-
-  // Now lets watch the time and see how long it takes for NTP to fix the clock
-  Serial.println("Waiting for NTP update (expect in about 1 hour)");
-  while(1) {
-    delay(1000);
-    printLocalTime();
-  }
+  delay(1000);
 }
