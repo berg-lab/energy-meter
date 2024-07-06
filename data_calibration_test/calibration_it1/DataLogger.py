@@ -15,8 +15,6 @@ file_path = os.path.join(save_directory, 'Iron_Box_data.csv')
 # Open a CSV file to write data
 with open(file_path, mode='w', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(["Time", "Processed Voltage Samples (V)", "Processed Current Samples (A)", "Raw Voltage ADC", "Raw Current ADC", "RMS Voltage (V)", "RMS Current (A)", "Power (W)"])
-
     while True:
         if ser.in_waiting > 0:
             # Read a line from the serial port
