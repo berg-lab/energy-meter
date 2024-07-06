@@ -1,3 +1,7 @@
+
+
+
+
 const int VOLTSENSE = A1;      // Pin for voltage sensing
 const int CURRENTSENSE = A0;   // Pin for current sensing
 const int numSamples = 20;     // Number of samples to store
@@ -11,6 +15,7 @@ const float VREF = 462;         // Reference voltage for current sensing(value h
 
 void setup() {
   Serial.begin(115200);  // Initialize serial communication at 115200 baud
+  Serial.println("Time,RMS Voltage (V),RMS Current (A),Power (W), Raw Voltage ADC,Raw Current ADC"); // Add labels for your data columns
 }
 
 void loop() {
@@ -57,27 +62,76 @@ void loop() {
   }
   float rmsVoltage = sqrt(sumSqVoltage / numSamples);
   float rmsCurrent = sqrt(sumSqCurrent / numSamples);
+//send time placeholder
+ Serial.print("TIME_PLACEHOLDER,"); 
+  // Send RMS voltage and current over serial
 
-  // Print the normalized values to the serial monitor
-  Serial.print("Voltage samples (V): ");
+  // Serial.print("RMS Voltage (V): ");
+
+  Serial.print(rmsVoltage);
+
+
+  // Serial.print("RMS Current (A): ");
+  Serial.print(",");
+  Serial.print(rmsCurrent);
+
+
+  // Serial.print("Power (W): ");
+  Serial.print(",");
+  Serial.print(rmsVoltage*rmsCurrent);
+  
+
+Serial.print(",");
+   // Print the normalized values to the serial monitor
+  
   for (int i = 0; i < numSamples; i++) {
     Serial.print(voltageSamples[i]);
-    if (i < numSamples - 1) Serial.print(", ");
+    if (i < numSamples - 1) Serial.print(",");
   }
-  Serial.println();
-
-  Serial.print("Current samples (A): ");
+  Serial.print(",");
+  
   for (int i = 0; i < numSamples; i++) {
     Serial.print(currentSamples[i]);
-    if (i < numSamples - 1) Serial.print(", ");
+    if (i < numSamples - 1) Serial.print(",");
   }
-  Serial.println();
+Serial.println("");
+  
+  
+  
+  // Send data to serial
+  // Serial.print(millis());
+  // Serial.print(",");
 
-  // Send RMS voltage and current over serial
-  Serial.print("RMS Voltage (V): ");
-  Serial.println(rmsVoltage);
-  Serial.print("RMS Current (A): ");
-  Serial.println(rmsCurrent);
-  Serial.print("Power (W): ");
-  Serial.println(rmsVoltage*rmsCurrent);
+  // for (int i = 0; i < numSamples; i++) {
+  //   Serial.print(voltageSamples[i]);
+  //   if (i < numSamples - 1) Serial.print(",");
+  // }
+  // Serial.print(",");
+
+  // for (int i = 0; i < numSamples; i++) {
+  //   Serial.print(currentSamples[i]);
+  //   if (i < numSamples - 1) Serial.print(",");
+  // }
+  // Serial.print(",");
+
+  // for (int i = 0; i < numSamples; i++) {
+  //   Serial.print(analogRead(VOLTSENSE));    // Raw ADC voltage values
+  //   if (i < numSamples - 1) Serial.print(",");
+  // }
+  // Serial.print(",");
+
+  // for (int i = 0; i < numSamples; i++) {
+  //   Serial.print(analogRead(CURRENTSENSE)); // Raw ADC current values
+  //   if (i < numSamples - 1) Serial.print(",");
+  // }
+  // Serial.print(",");
+
+  // Serial.print(rmsVoltage);
+  // Serial.print(",");
+  // Serial.print(rmsCurrent);
+  // Serial.print(",");
+  // Serial.println(rmsVoltage * rmsCurrent);
+
+  // delay(1000);  // Adjust the delay as needed
 }
+
