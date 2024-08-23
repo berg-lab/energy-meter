@@ -1,17 +1,14 @@
 
-
-
-
 const int VOLTSENSE = A1;      // Pin for voltage sensing
 const int CURRENTSENSE = A0;   // Pin for current sensing
-const int numSamples = 20;     // Number of samples to store
+const int numSamples = 100;     // Number of samples to store
 
 float voltageSamples[numSamples];   // Array to store voltage samples
 float currentSamples[numSamples];   // Array to store current samples
 
 const float MAINSVPP = 340;     // Peak-to-peak voltage for 120Vrms(checked online to be 339-350 vpp aprrox , need to research more)(170*2)
 const float CURRENTNORM = 15.5; // Normalizing constant for current 
-const float VREF = 462;         // Reference voltage for current sensing(value had to be calibrated , initial value was 498, connect killa-watt ,without load ad calibrate current to approx 0)
+const float VREF = 460;         // Reference voltage for current sensing(value had to be calibrated , initial value was 498, connect killa-watt ,without load ad calibrate current to approx 0)
 
 void setup() {
   Serial.begin(115200);  // Initialize serial communication at 115200 baud
@@ -23,8 +20,17 @@ void loop() {
   for (int i = 0; i < numSamples; i++) {
     voltageSamples[i] = analogRead(VOLTSENSE);    // Read the voltage value from A1
     currentSamples[i] = analogRead(CURRENTSENSE); // Read the current value from A0
-     delay(10);  // Small delay between readings to simulate sampling
+    
   }
+  //  for (int i = 0; i < numSamples; i++) {
+  //   Serial.print((int)voltageSamples[i]);
+  //   if (i < numSamples - 1) Serial.print(",");
+  // }
+  // Serial.println();
+  //  for (int i = 0; i < numSamples; i++) {
+  //   Serial.print((int)currentSamples[i]);
+  //   if (i < numSamples - 1) Serial.print(",");
+  // }
 
   // Calculate the min and max voltage
   int min_v = 1023;
@@ -63,6 +69,7 @@ void loop() {
   float rmsVoltage = sqrt(sumSqVoltage / numSamples);
   float rmsCurrent = sqrt(sumSqCurrent / numSamples);
 //send time placeholder
+
  Serial.print("TIME_PLACEHOLDER,"); 
   // Send RMS voltage and current over serial
 
