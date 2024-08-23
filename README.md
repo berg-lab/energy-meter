@@ -1,4 +1,3 @@
-# energy-meter
 # Energy-Meter
 
 ## Bee Data Logger Arduino
