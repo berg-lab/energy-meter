@@ -8,7 +8,7 @@ float currentSamples[numSamples];   // Array to store current samples
 
 const float MAINSVPP = 340;     // Peak-to-peak voltage for 120Vrms(checked online to be 339-350 vpp aprrox , need to research more)(170*2)
 const float CURRENTNORM = 15.5; // Normalizing constant for current 
-const float VREF = 460;         // Reference voltage for current sensing(value had to be calibrated , initial value was 498, connect killa-watt ,without load ad calibrate current to approx 0)
+const float VREF = 476.5;         // Reference voltage for current sensing(value had to be calibrated , initial value was 498, connect killa-watt ,without load ad calibrate current to approx 0)
 
 void setup() {
   Serial.begin(115200);  // Initialize serial communication at 115200 baud
